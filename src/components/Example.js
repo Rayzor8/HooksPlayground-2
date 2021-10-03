@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Example = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [boxPicked, setBoxPicked] = useState(0);
+
   const delay = 1;
+  
+  const box1 = useRef(null),
+        box2 = useRef(null),
+        box3 = useRef(null)
 
   useEffect(() => {
     const loader = setTimeout(() => {
@@ -19,22 +25,29 @@ const Example = () => {
       {isLoading ? (
         <div className="text-2xl bg-white w-4/5 p-4 md:p-8 my-4 rounded shadow-lg flex flex-col gap-4 text-center">
           <h1 className="font-bold text-4xl md:text-6xl title">Pick a Box!!</h1>
+          <h1 className="text-green-600 italic">Your choice is Box number {boxPicked}.</h1>
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-4">
             <div
-              id={1}
+              ref={box1}
+              id="1"
               className="border-2 border-gray-900 py-6 px-8 rounded cursor-pointer hover:text-green-600 hover:bg-gray-200 transition-all duration-150"
+              onClick={() => setBoxPicked( parseInt(box1.current.id))}
             >
               <h2>Box 1</h2>
             </div>
             <div
+             ref={box2}
               id={2}
               className="border-2 border-gray-900 py-6 px-8 rounded cursor-pointer hover:text-green-600 hover:bg-gray-200 transition-all duration-150"
+              onClick={(e) => setBoxPicked(parseInt(box2.current.id))}
             >
               <h2>Box 2</h2>
             </div>
             <div
+             ref={box3}
               id={3}
               className="border-2 border-gray-900 py-6 px-8 rounded cursor-pointer hover:text-green-600 hover:bg-gray-200 transition-all duration-150"
+              onClick={(e) => setBoxPicked(parseInt(box3.current.id))}
             >
               <h2>Box 3</h2>
             </div>
